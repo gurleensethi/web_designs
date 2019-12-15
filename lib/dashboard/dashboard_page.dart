@@ -6,11 +6,20 @@ class _AppColors {
   static const primaryColor = Color(0xFFF4F7FD);
 }
 
+class SizingBreakpoints {
+  static const desktop = 1100.0;
+  static const tablet = 600.0;
+}
+
 class SizingInformation {
   final DeviceType deviceType;
+  final double width;
+  final double height;
 
   SizingInformation({
     this.deviceType,
+    this.height,
+    this.width,
   });
 }
 
@@ -139,16 +148,21 @@ class ResponsiveBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mediaQueryData = MediaQuery.of(context);
+
     DeviceType deviceType;
-    if (mediaQueryData.size.width > 1100) {
+    if (mediaQueryData.size.width > SizingBreakpoints.desktop) {
       deviceType = DeviceType.desktop;
-    } else if (mediaQueryData.size.width > 600) {
+    } else if (mediaQueryData.size.width > SizingBreakpoints.tablet) {
       deviceType = DeviceType.tablet;
     } else {
       deviceType = DeviceType.mobile;
     }
 
-    final sizingInformation = SizingInformation(deviceType: deviceType);
+    final sizingInformation = SizingInformation(
+      deviceType: deviceType,
+      width: mediaQueryData.size.width,
+      height: mediaQueryData.size.height,
+    );
 
     if (builder != null) {
       return builder(context, sizingInformation);
@@ -239,7 +253,7 @@ class AnalyticsOverview extends StatelessWidget {
           child: GridView.count(
             shrinkWrap: true,
             crossAxisCount: 2,
-            childAspectRatio: 1.2,
+            childAspectRatio: info.width / SizingBreakpoints.tablet,
             children: items,
           ),
         );
@@ -278,14 +292,14 @@ class AnalyticsListItem extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 8.0),
-              Text(
+              SelectableText(
                 '21.1K',
                 style: TextStyle(
                   fontSize: 32.0,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
+              SelectableText(
                 'Total followers',
                 style: TextStyle(
                   fontSize: 12.0,
