@@ -251,6 +251,7 @@ class AnalyticsOverview extends StatelessWidget {
       buildTablet: (context, info) {
         return Container(
           child: GridView.count(
+            primary: false,
             shrinkWrap: true,
             crossAxisCount: 2,
             childAspectRatio: info.width / SizingBreakpoints.tablet,
@@ -260,6 +261,7 @@ class AnalyticsOverview extends StatelessWidget {
       },
       buildMobile: (context, info) {
         return ListView(
+          primary: false,
           shrinkWrap: true,
           children: items,
         );
