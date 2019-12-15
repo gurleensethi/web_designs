@@ -22,7 +22,7 @@ class DashboardPage extends StatelessWidget {
         scaffoldBackgroundColor: _AppColors.primaryColor,
       ),
       home: _DashboardPage(
-        body: Text('Body'),
+        body: DashboardBody(),
       ),
     );
   }
@@ -87,6 +87,25 @@ class _DashboardPage extends StatelessWidget {
           );
         }
       },
+    );
+  }
+}
+
+class DashboardBody extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: 900.0),
+        child: ListView(
+          padding: EdgeInsets.all(40.0),
+          shrinkWrap: true,
+          children: <Widget>[
+            AnalyticsOverview(),
+          ],
+        ),
+      ),
     );
   }
 }
@@ -170,6 +189,7 @@ class SideBar extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (context, index) {
           return Material(
+            color: Colors.white,
             child: InkWell(
               onTap: () {},
               child: Container(
@@ -179,6 +199,103 @@ class SideBar extends StatelessWidget {
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class AnalyticsOverview extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text(
+            'Analytics Overview',
+            style: TextStyle(
+              fontSize: 24.0,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          _buildList(),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildList() {
+    final items = [1, 2, 3, 4].map((item) => AnalyticsListItem()).toList();
+    return ResponsiveBuilder.device(
+      buildDesktop: (context, info) {
+        return Row(
+          children: items,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        );
+      },
+      buildTablet: (context, info) {
+        return Container(
+          child: GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            childAspectRatio: 1.2,
+            children: items,
+          ),
+        );
+      },
+      buildMobile: (context, info) {
+        return ListView(
+          shrinkWrap: true,
+          children: items,
+        );
+      },
+    );
+  }
+}
+
+class AnalyticsListItem extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.only(right: 8.0),
+      child: Card(
+        elevation: 0.0,
+        child: Container(
+          padding: EdgeInsets.all(40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: EdgeInsets.all(6.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Colors.lightBlue[200],
+                ),
+                child: Icon(
+                  Icons.people,
+                  color: Colors.blue,
+                ),
+              ),
+              SizedBox(height: 8.0),
+              Text(
+                '21.1K',
+                style: TextStyle(
+                  fontSize: 32.0,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                'Total followers',
+                style: TextStyle(
+                  fontSize: 12.0,
+                  color: Colors.blueGrey,
+                ),
+              ),
+              SizedBox(height: 8.0),
+            ],
+          ),
+        ),
       ),
     );
   }
