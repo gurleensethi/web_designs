@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:web_designs/dashboard/like_and_comments.dart';
 
 enum DeviceType { mobile, tablet, desktop }
 
@@ -112,6 +113,7 @@ class DashboardBody extends StatelessWidget {
           shrinkWrap: true,
           children: <Widget>[
             AnalyticsOverview(),
+            LikesAndComments(),
           ],
         ),
       ),
