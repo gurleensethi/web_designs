@@ -3,7 +3,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'dart:math' as math;
 import 'package:web_designs/dashboard/dashboard_page.dart';
 
-class LikeHistory extends StatelessWidget {
+class CommentsHistory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -24,7 +24,7 @@ class LikeHistory extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Text(
-            'Likes History',
+            'Comments History',
             style: TextStyle(
               fontSize: 16.0,
             ),
@@ -65,7 +65,7 @@ class LikeHistory extends StatelessWidget {
       charts.Series(
         id: 'Likes',
         data: List.generate(10, (index) {
-          final num = math.Random().nextInt((index + 1) * 100);
+          final num = math.Random().nextInt((index + 1) * 20);
           return num;
         }),
         measureFn: (data, index) => data,
@@ -75,6 +75,11 @@ class LikeHistory extends StatelessWidget {
             return [3, 3];
           }
           return null;
+        },
+        colorFn: (data, index) {
+          return charts.Color.fromHex(
+            code: Colors.red.value.toRadixString(16),
+          );
         },
       ),
     ];
