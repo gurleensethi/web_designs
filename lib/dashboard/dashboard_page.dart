@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:web_designs/dashboard/analytics_overview.dart';
 import 'package:web_designs/dashboard/follower_growth.dart';
 import 'package:web_designs/dashboard/like_and_comments.dart';
+import 'package:web_designs/dashboard/posting_habits.dart';
 
 enum DeviceType { mobile, tablet, desktop }
 
@@ -117,6 +118,8 @@ class DashboardBody extends StatelessWidget {
             AnalyticsOverview(),
             LikesAndComments(),
             FollowerGrowth(),
+            SizedBox(height: 32.0),
+            PostingHabits(),
           ],
         ),
       ),

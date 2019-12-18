@@ -56,7 +56,7 @@ class AnalyticsOverview extends StatelessWidget {
 class AnalyticsListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(      
+    return Container(
       child: Card(
         elevation: 0.0,
         child: Container(
