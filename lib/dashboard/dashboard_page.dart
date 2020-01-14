@@ -203,20 +203,31 @@ class ResponsiveBuilder extends StatelessWidget {
 }
 
 class SideBar extends StatelessWidget {
+  final List<String> _options = [
+    'Home',
+    'Reports',
+    'Notifications',
+    'Management',
+    'Settings',
+  ];
+
+  final int _activeOptionIndex = 0;
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
       child: ListView.builder(
-        itemCount: 10,
+        itemCount: _options.length,
         itemBuilder: (context, index) {
           return Material(
             color: Colors.white,
             child: InkWell(
               onTap: () {},
               child: Container(
+                color: index == _activeOptionIndex ? Colors.grey[200] : null,
                 padding: EdgeInsets.all(16.0),
-                child: Text('Index $index'),
+                child: Text(_options[index]),
               ),
             ),
           );
